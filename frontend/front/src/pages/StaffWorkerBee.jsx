@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { Drawer, List, ListItem, ListItemText, Box, Typography, Backdrop, CircularProgress } from '@mui/material';
-import { Home, Assignment, CalendarToday } from '@mui/icons-material';
+import React, { useState, useEffect } from "react";
+import { Drawer, List, ListItem, ListItemText, Box, Typography, Backdrop, CircularProgress } from "@mui/material";
+import { Home, Assignment, CalendarToday } from "@mui/icons-material";
+import Jobs from "../components/jobs.jsx"; // Importamos el componente de tareas
 
 const StaffWorkerbee = () => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Simulación de carga
-    setTimeout(() => setLoading(false), 1500); // 1.5 segundos de carga
+    setTimeout(() => setLoading(false), 1500); // Simulación de carga (1.5s)
   }, []);
 
   const handleDrawerToggle = () => {
@@ -16,29 +16,30 @@ const StaffWorkerbee = () => {
   };
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: "flex", height: "100vh" }}>
+      {/* Menú lateral */}
       <Drawer
         variant="permanent"
         open={open}
         sx={{
           width: open ? 240 : 60,
-          transition: 'width 0.3s ease',
-          '& .MuiDrawer-paper': {
+          transition: "width 0.3s ease",
+          "& .MuiDrawer-paper": {
             width: open ? 240 : 60,
-            transition: 'width 0.3s ease',
-            backgroundColor: '#333',
-            color: 'white',
+            transition: "width 0.3s ease",
+            backgroundColor: "#333",
+            color: "white",
           },
         }}
       >
-        <Box sx={{ display: 'flex', justifyContent: 'center', padding: 2 }}>
+        <Box sx={{ display: "flex", justifyContent: "center", padding: 2 }}>
           <img
             src="https://via.placeholder.com/40"
             alt="Logo"
             style={{
-              width: open ? '40px' : '30px',
-              height: open ? '40px' : '30px',
-              transition: 'width 0.3s ease, height 0.3s ease',
+              width: open ? "40px" : "30px",
+              height: open ? "40px" : "30px",
+              transition: "width 0.3s ease, height 0.3s ease",
             }}
           />
         </Box>
@@ -54,13 +55,22 @@ const StaffWorkerbee = () => {
           </ListItem>
           <ListItem button onClick={handleDrawerToggle}>
             <CalendarToday />
-            {open && <ListItemText primary="Mi Pefil" />}
+            {open && <ListItemText primary="Mi Perfil" />}
           </ListItem>
         </List>
       </Drawer>
 
+      {/* Contenido Principal (Lista de Tareas) */}
+      <Box sx={{ flexGrow: 2, p: 3 }}>
+        <Typography variant="h4" gutterBottom>
+          Tareas Disponibles
+        </Typography>
+        <Jobs />
+      </Box>
+
+      {/* Cargando */}
       <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={loading}
       >
         <CircularProgress color="inherit" />
